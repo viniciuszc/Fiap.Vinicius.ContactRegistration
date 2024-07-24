@@ -14,10 +14,10 @@ jobs:
     - name : Etapa 01 - Checkout do Código Fonte
       uses: actions/checkout@v2
 
-    - name: Etapa 02 - Configuração Ambiente .NET 8.x
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: 8.x
+    # - name: Etapa 02 - Configuração Ambiente .NET 8.x
+    #   uses: actions/setup-dotnet@v3
+    #   with:
+    #     dotnet-version: 8.x
 
     - name: Etapa 03 - Restaurando Dependências
       run: dotnet restore .././Fiap.GroupFive.ContactRegistration
