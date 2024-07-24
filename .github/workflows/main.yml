@@ -8,6 +8,8 @@ jobs:
   build:
     name: Executando Job de Build
     runs-on: self-hosted
+    permissions:
+      contents: write
     steps:
     - name : Etapa 01 - Checkout do Código Fonte
       uses: actions/checkout@v2
