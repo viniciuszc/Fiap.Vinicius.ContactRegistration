@@ -7,7 +7,7 @@ on:
 jobs:
   build:
     name: Executando Job de Build
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
     - name : Etapa 01 - Checkout do Código Fonte
       uses: actions/checkout@v2
@@ -25,3 +25,12 @@ jobs:
 
     - name: Etapa 05 - Executando Testes unitários
       run: dotnet test  .././Fiap.GroupFive.ContactRegistration --no-build --verbosity normal --configuration Release
+
+    - name: Etapa 06 - Publicando Artefato
+      run: dotnet publish .././Fiap.GroupFive.ContactRegistration --no-build --configuration Release --output ./publish
+
+    - name: Etapa 07 - Enviar Artefato
+      uses: actions/upload-artifact@v2
+      with:
+        name: published-artifact
+        path: ./publish
