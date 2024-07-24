@@ -23,16 +23,16 @@ jobs:
       run: ls
 
     - name: Etapa 03 - Restaurando Dependências
-      run: dotnet restore ./Fiap.GroupFive.ContactRegistration
+      run: dotnet restore 
 
     - name: Etapa 04 - Realizando Build
-      run: dotnet build  ./Fiap.GroupFive.ContactRegistration --no-restore --configuration Release
+      run: dotnet build  --no-restore --configuration Release
 
     - name: Etapa 05 - Executando Testes unitários
-      run: dotnet test  ./Fiap.GroupFive.ContactRegistration --no-build --verbosity normal --configuration Release
+      run: dotnet test  --no-build --verbosity normal --configuration Release
 
     - name: Etapa 06 - Publicando Artefato
-      run: dotnet publish ./Fiap.GroupFive.ContactRegistration --no-build --configuration Release --output ./publish
+      run: dotnet publish --no-build --configuration Release --output ./publish
 
     - name: Etapa 07 - Enviar Artefato
       uses: actions/upload-artifact@v2
