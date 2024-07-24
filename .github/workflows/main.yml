@@ -19,6 +19,9 @@ jobs:
     #   with:
     #     dotnet-version: 8.x
 
+    - name: Etapa 02 - Listando pastas locais
+      run: ls
+      
     - name: Etapa 03 - Restaurando Dependências
       run: dotnet restore .././Fiap.GroupFive.ContactRegistration
 
