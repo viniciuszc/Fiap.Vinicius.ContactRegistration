@@ -1,0 +1,27 @@
+name: Pipeline - Tech Challenge Fase 02 [.Net 8]
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+jobs:
+  build:
+    name: Executando Job de Build
+    runs-on: ubuntu-latest
+    steps:
+    - name : Etapa 01 - Checkout do Código Fonte
+      uses: actions/checkout@v2
+
+    - name: Etapa 02 - Configuração Ambiente .NET 8.x
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 8.x
+
+    - name: Etapa 03 - Restaurando Dependências
+      run: dotnet restore .././Fiap.GroupFive.ContactRegistration
+
+    - name: Etapa 04 - Realizando Build
+      run: dotnet build  .././Fiap.GroupFive.ContactRegistration --no-restore --configuration Release
+
+    - name: Etapa 05 - Executando Testes unitários
+      run: dotnet test  .././Fiap.GroupFive.ContactRegistration --no-build --verbosity normal --configuration Release
