@@ -32,10 +32,14 @@ jobs:
       run: dotnet test  --no-build --verbosity normal --configuration Release
 
     - name: Etapa 06 - Publicando Artefato
-      run: dotnet publish --no-build --configuration Release --output ./publish
+      run: dotnet publish --no-build --configuration Release ./publish
 
     - name: Etapa 07 - Enviar Artefato
       uses: actions/upload-artifact@v2
       with:
         name: published-artifact
         path: ./publish
+    
+    - name: Etapa 08 - Executar Artefato Publicado .Net
+      run: dotnet run --project ./WebApi/ --launch-profile https
+      
