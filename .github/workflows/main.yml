@@ -40,6 +40,6 @@ jobs:
         name: published-artifact
         path: ./publish
     
-    - name: Etapa 08 - Executar Artefato Publicado .Net
-      run: dotnet run --project ./WebApi/ --launch-profile https
+    - name: Etapa 08 - Publicando Container's Docker
+      run: docker compose up -d
       

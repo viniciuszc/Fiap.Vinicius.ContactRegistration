@@ -10,49 +10,58 @@ services:
     depends_on: 
       - sqlserver
     ports:
-      - "5000:80"
-    restart: always
-    environment: 
-      - DBHOST=sqlserver
-      - ASPNETCORE_ENVIRONMENT=Development     
+      - "8080:8080"
+    restart: always 
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080 
     networks:
-      - webapi
+      - website
   
   prometheus:
     image: prom/prometheus:v2.36.2
+    container_name: prometheus
     volumes:
-      - ./prometheus.yaml:etc/prometheus/prometheus.yml
+      - ./prometheus.yaml:/etc/prometheus/prometheus.yml
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
     ports:
       - "9090:9090"
     networks:
-      - webapi
-
+      - website
+ 
   grafana:
     image: grafana/grafana:latest
+    container_name: grafana
     ports:
       - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - ./grafana:/var/lib/grafana
+    depends_on:
+      - prometheus
     networks:
-      - webapi
+      - website
 
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      SA_PASSWORD: "SqlServer2019!"
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: "Developer"
+    ports:
+      - "1433:1433"
+  mssqltools:
+    image: mcr.microsoft.com/mssql-tools
+    depends_on:
+      - sqlserver
+    volumes:
+      - ./01-BaseCadastro.sql:/tmp/01-BaseCadastro.sql      
+      - ./init-basecadastro.sh:/tmp/init-basecadastro.sh
+    command: /bin/bash ./tmp/init-basecadastro.sh
+
+    
 networks:
   website:
     driver: bridge
-
-  # sqlserver:
-  #   image: mcr.microsoft.com/mssql/server:2019-latest
-  #   environment:
-  #     SA_PASSWORD: "SqlServer2019!"
-  #     ACCEPT_EULA: "Y"
-  #     MSSQL_PID: "Developer"
-  #   ports:
-  #     - "1433:1433"
-  # mssqltools:
-  #   image: mcr.microsoft.com/mssql-tools
-  #   depends_on:
-  #     - sqlserver
-  #   volumes:
-  #     - ./01-BaseCadastro.sql:/tmp/01-BaseCadastro.sql      
-  #     - ./init-basecadastro.sh:/tmp/init-basecadastro.sh
-  #   command: /bin/bash ./tmp/init-basecadastro.sh
-
-
