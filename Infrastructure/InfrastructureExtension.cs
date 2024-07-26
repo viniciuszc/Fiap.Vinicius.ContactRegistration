@@ -1,8 +1,8 @@
 ﻿using Domain.Repository;
-using Domain.Services;
-using Infrastructure.Authentication;
+using Domain.Service;
 using Infrastructure.Data;
 using Infrastructure.Data.Repository;
+using Infrastructure.Service;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,9 +16,8 @@ public static class InfrastructureExtension
     public static void AddSqlServerDbContext(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddDbContext(configuration);
-        services.AddRepositories();
-        //TODO
-        services.AddScoped<ITokenService, TokenService>();
+        services.AddRepository();
+        services.AddService();
     }
 
     private static void AddDbContext(this IServiceCollection services, IConfiguration configuration)
@@ -28,8 +27,17 @@ public static class InfrastructureExtension
         services.AddDbContext<SqlServerDbContext>(options => options.UseSqlServer(connectionString));
     }
 
-    private static void AddRepositories(this IServiceCollection services)
+    private static void AddRepository(this IServiceCollection services)
     {
+        services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IContactRepository, ContactRepository>();
+        services.AddScoped<IDDDRepository, DDDRepository>();
+    }
+
+    private static void AddService(this IServiceCollection services)
+    {
+        //TODO: remover
+        services.AddScoped<ITokenService, TokenService>();
+        services.AddScoped<IPasswordService, PasswordService>();
     }
 }

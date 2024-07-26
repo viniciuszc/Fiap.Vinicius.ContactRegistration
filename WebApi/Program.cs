@@ -1,5 +1,6 @@
 using Application;
 using Infrastructure;
+using Prometheus;
 using Serilog;
 using WebApi;
 
@@ -19,14 +20,29 @@ builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
 
+//builder.Services.UseHttpClientMetrics(); 
+
 builder.Services.AddSwagger(configuration);
 
+builder.Services.AddCors(policyBuilder =>
+    policyBuilder.AddDefaultPolicy(policy =>
+        policy.WithOrigins("*").AllowAnyHeader().AllowAnyMethod())
+);
+
 var app = builder.Build();
+app.UseCors();
 
-app.UseSwagger();
-app.UseSwaggerUI();
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
-app.UseHttpsRedirection();
+app.UseMetricServer();
+
+app.UseHttpMetrics();
+
+//app.UseHttpsRedirection();
 
 app.UseAuthentication();
 
@@ -35,3 +51,6 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+public partial class Program
+{ }

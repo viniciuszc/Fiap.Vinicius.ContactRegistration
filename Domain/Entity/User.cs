@@ -1,11 +1,16 @@
-﻿using Domain.Enums;
-
-namespace Domain.Entity;
+﻿namespace Domain.Entity;
 
 public class User
 {
-    public int Id { get; set; }
-    public string Username { get; set; }
-    public string Password { get; set; }
-    public TypePermission PermissaoSistema { get; set; }
+    public User(string name, string email, string password)
+    {
+        Name = name;
+        Email = email;
+        Password = password;
+    }
+
+    public int Id { get; }
+    public string Name { get; }
+    public string Email { get; }
+    public string Password { get; }
 }
