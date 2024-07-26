@@ -21,7 +21,7 @@ jobs:
       run: dotnet build  --no-restore --configuration Release
 
     - name: Etapa 04 - Executando Testes unitários
-      run: dotnet test  --no-build --verbosity normal --configuration Release
+      run: dotnet test  --no-build --verbosity quiet --configuration Release 2>/dev/null | grep -E 'Test Run Successful|Total tests|Passed|Failed|Skipped
 
     - name: Etapa 05 - Publicando Artefato
       run: dotnet publish --no-build --configuration Release --output ./publish

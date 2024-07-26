@@ -1,5 +1,3 @@
-version: '3.4'
-
 services:
   webapi:
     image: ${DOCKER_REGISTRY-}webapi
@@ -60,7 +58,6 @@ services:
       - ./01-BaseCadastro.sql:/tmp/01-BaseCadastro.sql      
       - ./init-basecadastro.sh:/tmp/init-basecadastro.sh
     command: /bin/bash ./tmp/init-basecadastro.sh
-
     
 networks:
   website:
