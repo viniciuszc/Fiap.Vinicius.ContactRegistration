@@ -20,8 +20,6 @@ builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
 
-//builder.Services.UseHttpClientMetrics(); 
-
 builder.Services.AddSwagger(configuration);
 
 builder.Services.AddCors(policyBuilder =>
@@ -41,8 +39,6 @@ if (app.Environment.IsDevelopment())
 app.UseMetricServer();
 
 app.UseHttpMetrics();
-
-//app.UseHttpsRedirection();
 
 app.UseAuthentication();
 

@@ -7,7 +7,7 @@ public class BaseController : Controller
 {
     protected string GetToken()
     {
-        return string.Empty; //TODO
+        //return string.Empty; //TODO
         
         var authorizationHeader = Request.Headers["Authorization"].ToString();
         return authorizationHeader["Bearer ".Length..].Trim();

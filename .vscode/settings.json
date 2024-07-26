@@ -1,0 +1,34 @@
+{
+    "sqltools.connections": [
+        {
+            "mssqlOptions": {
+                "appName": "SQLTools",
+                "useUTC": true,
+                "encrypt": true
+            },
+            "previewLimit": 50,
+            "server": "host.docker.internal",
+            "port": 1433,
+            "driver": "MSSQL",
+            "name": "SQL Docker",
+            "database": "CADASTRO",
+            "username": "sa",
+            "password": "SqlServer2019!"
+        },
+        {
+            "mssqlOptions": {
+                "appName": "SQLTools",
+                "useUTC": true,
+                "encrypt": true
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 1433,
+            "driver": "MSSQL",
+            "name": "Teste",
+            "username": "sa",
+            "password": "SqlServer2019!",
+            "database": "msdb"
+        }
+    ]
+}
