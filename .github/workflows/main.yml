@@ -26,11 +26,8 @@ jobs:
     - name: Etapa 05 - Publicando Artefato
       run: dotnet publish --no-build --configuration Release --output ./publish
 
-    - name: Etapa 06 - Enviar Artefato
-      uses: actions/upload-artifact@v2
-      with:
-        name: published-artifact
-        path: ./publish
+    - name: Etapa 06 - Criando Artefato Docker
+      run: docker compose build
     
     - name: Etapa 07 - Publicando Container's Docker
       run: docker compose up -d
